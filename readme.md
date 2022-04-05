@@ -6,4 +6,6 @@ pip install -r requirements.txt
 
 As Backed we use FASTAPI.
 
+https://fastapi.tiangolo.com/
+
 uvicorn main:app --reload
