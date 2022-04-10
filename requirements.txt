@@ -1,7 +1,7 @@
 anyio==3.5.0
 asgiref==3.5.0
 click==8.1.2
-fastapi
+fastapi~=0.75.1
 h11==0.13.0
 httptools==0.4.0
 idna==3.3
@@ -18,3 +18,16 @@ uvloop==0.16.0
 watchgod==0.8.2
 websockets==10.2
 wheel==0.36.2
+numpy~=1.22.3
+pytz~=2022.1
+requests~=2.27.1
+pandas~=1.4.2
+python-dateutil~=2.8.2
+certifi~=2021.10.8
+six~=1.16.0
+validators~=0.18.2
+decorator~=5.1.1
+urllib3~=1.26.9
+pyTigerGraph~=0.0.9.9.2
+pyTigerDriver~=1.0.14
+trafilatura

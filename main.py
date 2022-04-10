@@ -1,14 +1,10 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-from typing import Optional
-from fastapi import FastAPI
-import pyTigerGraph as tg
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-import config as Credential
-
-conn = tg.TigerGraphConnection(host=Credential.HOST, username=Credential.USERNAME, password=Credential.PASSWORD,
-                               graphname=Credential.GRAPHNAME)
-conn.apiToken = conn.getToken(conn.createSecret())
+from config import conn
+from model.resource import Resource
+from model.website import Website
+from note_service import add_data_local_csv_file, add_data_to_vertex
+from tag_service import get_top_rank_topics
 
 app = FastAPI()
 
@@ -25,20 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-class Resource(BaseModel):
-    id: str
-    url: str
-    notes: str
-
-
-@app.get("/resource")
-async def resource():
-    gQuery = conn.runInstalledQuery("get_ressource_by_user")[0]
-    count = 0
-    return {"message": f"{gQuery}"}
-
-
+## Endpoint to save data from browser extension
 @app.post("/notes")
 async def resource(resource: Resource):
-    print(resource)
+    add_data_to_vertex(resource)
