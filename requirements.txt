@@ -31,3 +31,6 @@ urllib3~=1.26.9
 pyTigerGraph~=0.0.9.9.2
 pyTigerDriver~=1.0.14
 trafilatura
+tldextract
+pytextrank
+bs4
