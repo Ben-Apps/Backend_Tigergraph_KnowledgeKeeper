@@ -10,7 +10,7 @@ from model.resource import Resource
 from services.tag_service import get_simlarity, get_score
 from services.vertex_service import get_all_ressources_id
 
-CSV_FILE_NAME = "../resource_data.csv"
+CSV_FILE_NAME = "resource_data.csv"
 
 
 def prepareResource(res: Resource):
@@ -19,12 +19,13 @@ def prepareResource(res: Resource):
     res.id = res_id
     res.domain = domain_url
     res.date = datetime.now()
-    res.tags = [t.replace(" ", "").lower() for t in res.tags]
-    res.user = "Ben"
+    res.tags = [t.replace(", ", "").lower() for t in res.tags]
+    res.user = "User_1"
     if "youtube" in res.domain:
         res.type = "Video"
     else:
         res.type = "Website"
+    print(res.json())
     ##find_node()
     return res
 
@@ -32,7 +33,6 @@ def prepareResource(res: Resource):
 ## Add data to tigergraph. Add Data to Edges and Vertices
 def add_data_to_vertex(res: Resource):
     res = prepareResource(res)
-    print(res.json())
     add_user_to_resource(res)
     add_highlights_to_resource(res)
     add_date_to_resource(res)
@@ -41,6 +41,7 @@ def add_data_to_vertex(res: Resource):
     add_tag_to_ressource(res)
     add_resource_to_note(res)
     add_data_local_csv_file(res)
+    add_domain_to_resource(res)
 
 
 def add_highlights_to_resource(res: Resource):
@@ -53,8 +54,13 @@ def add_date_to_resource(res: Resource):
     conn.upsertEdge(VERTEX_RESSOURCE, res.id, EDGE_HAS_DATE, VERTEX_DATE, str(res.date))
 
 
+def add_domain_to_resource(res: Resource):
+    conn.upsertVertex("domain", res.domain)
+    conn.upsertEdge(VERTEX_RESSOURCE, res.id, "has_domain", "domain", res.domain)
+
+
 def add_type_to_resource(res: Resource):
-        conn.upsertEdge(VERTEX_RESSOURCE, res.id, EDGE_HAS_TYPE, VERTEX_TYPE, res.type)
+    conn.upsertEdge(VERTEX_RESSOURCE, res.id, EDGE_HAS_TYPE, VERTEX_TYPE, res.type)
 
 
 def add_user_to_resource(res: Resource):
