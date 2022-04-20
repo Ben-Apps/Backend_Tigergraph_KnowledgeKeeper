@@ -48,6 +48,8 @@ csv file.
 
 /data: here you can find a example csv of collected data by browser extension
 
+/graph_gen: graph generation module
+
 
 ### Dataset
 
