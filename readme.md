@@ -46,6 +46,8 @@ csv file.
 
 /services/vertex_service: Get data from tigergraph and put it in a good json way.
 
+/data: here you can find a example csv of collected data by browser extension
+
 
 ### Dataset
 
