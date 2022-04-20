@@ -1,0 +1,8 @@
+CREATE QUERY get_ressource_by_user(String userName) FOR GRAPH ressource_graph {
+  
+  results = SELECT r FROM user:v -(has_resource:w)- ressource:r
+  WHERE v.name == userName;
+
+  
+  PRINT results;
+}

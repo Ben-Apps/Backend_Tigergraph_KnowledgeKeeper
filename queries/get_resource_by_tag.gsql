@@ -1,0 +1,11 @@
+CREATE QUERY get_resource_by_tag(STRING tag) FOR GRAPH ressource_graph { 
+  /* Write query logic here */ 
+  ListAccum<STRING> @@edgeList;
+  
+  result = SELECT r
+       FROM ressource:r -(has_tags:e)- Tag:t WHERE t.value == tag;
+  
+  PRINT result;
+
+  
+}

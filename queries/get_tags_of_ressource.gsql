@@ -1,0 +1,13 @@
+CREATE QUERY get_tags_of_ressource() FOR GRAPH ressource_graph { 
+  
+  ListAccum<STRING> @@edgeList;
+  
+  S1 = SELECT s
+       FROM ressource:s -(has_tags:e)- Tag:t
+      ACCUM @@edgeList += t.value;
+  
+  
+
+  PRINT  S1; 
+
+}

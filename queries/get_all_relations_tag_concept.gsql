@@ -1,0 +1,12 @@
+CREATE QUERY get_super_topics_of_specific_word(STRING word_query) FOR GRAPH ressource_graph { 
+  
+   ListAccum<STRING> @@edgeList;
+
+  S1 = SELECT s
+       FROM Tag:s -(relatedEquivalent:e)- :t
+  WHERE s.value == word_query
+  ACCUM @@edgeList += t.value;
+  
+
+  PRINT  @@edgeList; 
+}
